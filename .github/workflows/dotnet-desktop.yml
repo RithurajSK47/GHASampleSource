@@ -49,19 +49,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Checkout your repository code
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # Step 2: Setup .NET SDK (e.g., .NET 8)
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
 
+      # Step 3: Restore project dependencies
       - name: Restore dependencies
         run: dotnet restore
+        working-directory: GHASampleApp/GHASampleApp  # 👈 Folder containing .csproj
 
+      # Step 4: Build the project
       - name: Build
         run: dotnet build --no-restore
+        working-directory: GHASampleApp/GHASampleApp  # 👈 Same folder again
 
+      # Step 5: Run tests (optional)
       - name: Test
         run: dotnet test --no-build --verbosity normal
+        working-directory: GHASampleApp/GHASampleApp  # 👈 Same folder again
+
+
